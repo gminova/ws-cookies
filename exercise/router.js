@@ -21,6 +21,28 @@ module.exports = (req, res) => {
         "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000"
       });
       return res.end();
+    case "POST /logout":
+      res.writeHead(302, {
+        Location: "/",
+        "Set-Cookie": "logged_in=false; HttpOnly; Max-Age=0"
+      });
+      return res.end();
+    case "GET /auth_check":
+      if (req.headers.cookie && req.headers.cookie.match(/logged_in=true/)) {
+        const message = "Success";
+        res.writeHead(200, {
+          "Content-Type": "text/plain",
+          "Content-Length": message.length
+        });
+        return res.end(message);
+      } else {
+        const message = "Fail";
+        res.writeHead(401, {
+          "Content-Type": "text/plain",
+          "Content-Length": message.length
+        });
+        return res.end(message);
+      }
     default:
       res.writeHead(404, {
         "Content-Type": "text/html",
