@@ -16,13 +16,11 @@ module.exports = (req, res) => {
         return res.end(data);
       });
     case "POST /login":
-      return readFile(path.join(__dirname, "index.html"), (err, data) => {
-        res.writeHead(302, {
-          "Location": "/",
-          "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000"
-        });
-        return res.end();
+      res.writeHead(302, {
+        Location: "/",
+        "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000"
       });
+      return res.end();
     default:
       res.writeHead(404, {
         "Content-Type": "text/html",
