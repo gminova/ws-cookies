@@ -16,13 +16,13 @@ module.exports = (req, res) => {
         return res.end(data);
       });
     case "POST /login":
-      res.writeHead(302, {
+      res.writeHead(301, {
         Location: "/",
         "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000"
       });
       return res.end();
     case "POST /logout":
-      res.writeHead(302, {
+      res.writeHead(301, {
         Location: "/",
         "Set-Cookie": "logged_in=false; HttpOnly; Max-Age=0"
       });
